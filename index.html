@@ -848,26 +848,52 @@
             const ws = parseFloat(item.washing || 0);
 
             // Build rows: left label, right value (only Total shows 'Rs')
-            if (fv > 0) rows += `<div>Frame</div><div class="text-right">${fv.toFixed(2)}</div>`;
+            if (fv > 0)
+              rows += `<div>Frame</div><div class="text-right">${fv.toFixed(
+                2
+              )}</div>`;
             if (mp > 0) {
-              const mcat = item.meshType || (item.meshLabelShort || "").split(" ")[0] || "";
-              rows += `<div>Mesh Type <span class="text-sm text-gray-600">(${mcat})</span></div><div class="text-right">${mp.toFixed(2)}</div>`;
+              const mcat =
+                item.meshType ||
+                (item.meshLabelShort || "").split(" ")[0] ||
+                "";
+              rows += `<div>Mesh Type <span class="text-sm text-gray-600">(${mcat})</span></div><div class="text-right">${mp.toFixed(
+                2
+              )}</div>`;
             }
-            if (st > 0) rows += `<div>Stretching</div><div class="text-right">${st.toFixed(2)}</div>`;
-            if (ex > 0) rows += `<div>Exposin</div><div class="text-right">${ex.toFixed(2)}</div>`;
-            if (hd > 0) rows += `<div>Hardener</div><div class="text-right">${hd.toFixed(2)}</div>`;
-            if (ws > 0) rows += `<div>Washing</div><div class="text-right">${ws.toFixed(2)}</div>`;
-            if (item.mode !== "manual" && item.width && item.height) rows += `<div>Dimensions</div><div class="text-right">${item.width} × ${item.height}</div>`;
+            if (st > 0)
+              rows += `<div>Stretching</div><div class="text-right">${st.toFixed(
+                2
+              )}</div>`;
+            if (ex > 0)
+              rows += `<div>Exposin</div><div class="text-right">${ex.toFixed(
+                2
+              )}</div>`;
+            if (hd > 0)
+              rows += `<div>Hardener</div><div class="text-right">${hd.toFixed(
+                2
+              )}</div>`;
+            if (ws > 0)
+              rows += `<div>Washing</div><div class="text-right">${ws.toFixed(
+                2
+              )}</div>`;
+            if (item.mode !== "manual" && item.width && item.height)
+              rows += `<div>Dimensions</div><div class="text-right">${item.width} × ${item.height}</div>`;
 
             // Always show Total (with Rs)
-            rows += `<div class="font-bold">Total</div><div class="text-right font-bold">Rs ${parseFloat(item.total || 0).toFixed(2)}</div>`;
+            rows += `<div class="font-bold">Total</div><div class="text-right font-bold">Rs ${parseFloat(
+              item.total || 0
+            ).toFixed(2)}</div>`;
 
-            div.innerHTML = `
+            div.innerHTML =
+              `
           <div class="flex justify-between items-center">
               ${titleTop}
               <button class="text-red-500 font-bold" onclick="removeItemById('${item.id}')">X</button>
           </div>
-          <div class="text-sm text-gray-700 grid grid-cols-2 gap-1">` + rows + `</div>`;
+          <div class="text-sm text-gray-700 grid grid-cols-2 gap-1">` +
+              rows +
+              `</div>`;
             cartEl.appendChild(div);
           });
           document.getElementById("totalPrice").innerText =
