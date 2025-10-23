@@ -684,33 +684,47 @@
                 `<div class="text-sm sm:text-base font-medium"><p>${item.frameValue ? 'Frame' : 'Select Frame'}</p><p>${item.meshType || ''} ${item.width && item.height ? `(${item.width}×${item.height})` : ''}</p></div>` :
                 `<div class="text-sm sm:text-base font-medium"><p>${item.frameLabel || (item.frameValue ? `Frame - Rs ${item.frameValue}` : 'Frame: -')}</p><p>${item.meshLabelShort || item.meshLabel || 'Mesh -'}</p></div>`;
 
+            // build rows only for non-zero price components
+            let rows = '';
+            const fv = parseFloat(item.frameValue || 0);
+            const mp = parseFloat(item.meshPrice || 0);
+            const st = parseFloat(item.stretching || 0);
+            const ex = parseFloat(item.exposin || 0);
+            const hd = parseFloat(item.hardener || 0);
+            const ws = parseFloat(item.washing || 0);
+
+            if (fv > 0) {
+              rows += `<div>Frame Price</div><div class="text-right">${fv.toFixed(2)}</div>`;
+            }
+            if (mp > 0) {
+              rows += `<div>Mesh Price</div><div class="text-right">${mp.toFixed(2)}</div>`;
+            }
+            if (st > 0) {
+              rows += `<div>Stretching</div><div class="text-right">${st.toFixed(2)}</div>`;
+            }
+            if (ex > 0) {
+              rows += `<div>Exposin</div><div class="text-right">${ex.toFixed(2)}</div>`;
+            }
+            if (hd > 0) {
+              rows += `<div>Hardener</div><div class="text-right">${hd.toFixed(2)}</div>`;
+            }
+            if (ws > 0) {
+              rows += `<div>Washing</div><div class="text-right">${ws.toFixed(2)}</div>`;
+            }
+            // Dimensions only for non-manual items (and only if present)
+            if (item.mode !== 'manual' && item.width && item.height) {
+              rows += `<div>Dimensions</div><div class="text-right">${item.width} × ${item.height}</div>`;
+            }
+
+            // Always show Total
+            rows += `<div class="font-bold">Total</div><div class="text-right font-bold">Rs ${parseFloat(item.total || 0).toFixed(2)}</div>`;
+
             div.innerHTML = `
           <div class="flex justify-between items-center">
               ${titleTop}
             <button class="text-red-500 font-bold" onclick="removeItem(${i})">X</button>
           </div>
-            <div class="text-sm text-gray-700 grid grid-cols-2 gap-1">
-            <div>Frame Price</div><div class="text-right">${parseFloat(
-              item.frameValue || 0
-            ).toFixed(2)}</div>
-            <div>Mesh Price</div><div class="text-right">${parseFloat(
-              item.meshPrice || 0
-            ).toFixed(2)}</div>
-            <div>Stretching</div><div class="text-right">${parseFloat(
-              item.stretching || 0
-            ).toFixed(2)}</div>
-            <div>Exposin</div><div class="text-right">${parseFloat(
-              item.exposin || 0
-            ).toFixed(2)}</div>
-            <div>Hardener</div><div class="text-right">${parseFloat(
-              item.hardener || 0
-            ).toFixed(2)}</div>
-            <div>Washing</div><div class="text-right">${parseFloat(item.washing || 0).toFixed(2)}</div>
-            ${item.mode !== 'manual' && item.width && item.height ? `<div>Dimensions</div><div class="text-right">${item.width} × ${item.height}</div>` : ''}
-            <div class="font-bold">Total</div><div class="text-right font-bold">Rs ${parseFloat(
-              item.total || 0
-            ).toFixed(2)}</div>
-          </div>`;
+          <div class="text-sm text-gray-700 grid grid-cols-2 gap-1">` + rows + `</div>`;
             cartEl.appendChild(div);
           });
           document.getElementById("totalPrice").innerText =
