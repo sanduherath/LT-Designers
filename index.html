@@ -225,13 +225,95 @@
                   </div>
                 </div>
 
-                <!-- Manual Calculations Form -->
-                <div
-                  id="manualForm"
-                  class="lg:col-span-2 border-2 border-blue-900 rounded-xl p-4 hidden"
-                >
-                  <!-- Manual form unchanged -->
+        <!-- Manual Calculations Form -->
+        <div
+          id="manualForm"
+          class="lg:col-span-2 border-2 border-blue-900 rounded-xl p-4 hidden"
+        >
+          <h2 class="text-lg sm:text-xl lg:text-2xl font-bold mb-4 text-center text-gray-800">Manual Calculations</h2>
+
+                <div class="form-scroll grid grid-cols-2 gap-3">
+                  <!-- Width & Height -->
+                  <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Width</label>
+                    <input type="number" id="manualWidth" placeholder="Enter Width"
+                      class="w-full px-3 py-2 border-2 border-blue-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Height</label>
+                    <input type="number" id="manualHeight" placeholder="Enter Height"
+                      class="w-full px-3 py-2 border-2 border-blue-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium">
+                  </div>
+
+                  <!-- Frame -->
+                  <div class="col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Frame</label>
+                    <input type="number" id="manualFrame" placeholder="Enter Frame Price"
+                      class="w-full px-3 py-2 border-2 border-blue-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium">
+                  </div>
+
+                  <!-- Mesh Type -->
+                  <div class="col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Select Mesh Type</label>
+                    <div class="flex gap-4">
+                      <button id="manualPVC"
+                        class="flex-1 py-2 px-3 rounded-lg bg-blue-900 text-white font-semibold text-sm transition-all">PVC</button>
+                      <button id="manualWaterbase"
+                        class="flex-1 py-2 px-3 rounded-lg bg-gray-300 text-gray-700 font-semibold text-sm transition-all">Waterbase</button>
+                    </div>
+                  </div>
+
+                                    <!-- Mesh Price (manual entry) -->
+                                    <div class="col-span-2">
+                                                          <label class="block text-sm font-semibold text-gray-700 mb-2">Mesh Price (Manual)</label>
+                                                          <input type="number" id="manualMeshPrice" placeholder="Enter Mesh Price"
+                                                            class="w-full px-3 py-2 border-2 border-blue-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium" />
+                                    </div>
+
+                                    <!-- (Manual mesh size selection removed - mesh price is entered manually) -->
+
+                  <!-- Other Fields -->
+                  <div class="col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Stretching</label>
+                    <input type="number" id="manualStretching" placeholder="Enter Stretching Price"
+                      class="w-full px-3 py-2 border-2 border-blue-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium">
+                  </div>
+
+                  <div class="col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Exposin</label>
+                    <input type="number" id="manualExposin" placeholder="Enter Exposin Price"
+                      class="w-full px-3 py-2 border-2 border-blue-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium">
+                  </div>
+
+                  <div class="col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Hardener</label>
+                    <input type="number" id="manualHardener" placeholder="Enter Hardener Price"
+                      class="w-full px-3 py-2 border-2 border-blue-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium">
+                  </div>
+
+                  <div class="col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Washing</label>
+                    <input type="number" id="manualWashing" placeholder="Enter Washing Price"
+                      class="w-full px-3 py-2 border-2 border-blue-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium">
+                  </div>
+
+                  <!-- Total Price -->
+                  <div class="col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Total Price (LKR)</label>
+                    <input type="text" id="manualTotal" readonly
+                      class="w-full px-3 py-2 border-2 border-gray-300 rounded-lg bg-gray-100 text-sm font-bold"
+                      value="0.00">
+                  </div>
+
+                  <!-- Add Cart Button -->
+                  <div class="col-span-2">
+                    <button id="manualAddCart"
+                      class="w-full bg-blue-900 hover:bg-blue-800 text-white py-2 sm:py-3 rounded-lg font-semibold transition-all shadow-lg text-sm sm:text-base">
+                      Add to Cart
+                    </button>
+                  </div>
                 </div>
+        </div>
 
                 <!-- Cart Items Section -->
                 <div class="lg:col-span-1">
@@ -289,9 +371,10 @@
         ],
       };
 
-      let cartItems = [];
-      let currentMode = "auto";
-      let autoMeshType = "PVC";
+  let cartItems = [];
+  let currentMode = "auto";
+  let autoMeshType = "PVC";
+  let manualMeshType = "PVC";
 
       // --- Mode Toggle ---
       document.getElementById("autoBtn").addEventListener("click", () => {
@@ -341,6 +424,23 @@
         populateMeshOptions();
         toggleMeshButton("WaterBase");
       });
+      // --- Manual Mesh Type Toggle (wire up) ---
+      document.getElementById('manualPVC').addEventListener('click', ()=>{
+        manualMeshType = 'PVC';
+        document.getElementById('manualPVC').classList.add('bg-blue-900','text-white');
+        document.getElementById('manualPVC').classList.remove('bg-gray-300','text-gray-700');
+        document.getElementById('manualWaterbase').classList.add('bg-gray-300','text-gray-700');
+        document.getElementById('manualWaterbase').classList.remove('bg-blue-900','text-white');
+        populateManualMeshOptions();
+      });
+      document.getElementById('manualWaterbase').addEventListener('click', ()=>{
+        manualMeshType = 'WaterBase';
+        document.getElementById('manualWaterbase').classList.add('bg-blue-900','text-white');
+        document.getElementById('manualWaterbase').classList.remove('bg-gray-300','text-gray-700');
+        document.getElementById('manualPVC').classList.add('bg-gray-300','text-gray-700');
+        document.getElementById('manualPVC').classList.remove('bg-blue-900','text-white');
+        populateManualMeshOptions();
+      });
       function toggleMeshButton(type) {
         if (type === "PVC") {
           document
@@ -385,6 +485,16 @@
         document.getElementById("autoMeshPrice").value = 0;
         calculateAutoTotal();
       }
+
+      // --- Populate Manual Mesh Options ---
+      function populateManualMeshOptions(){
+        // For manual mode we allow direct entry of mesh price. Reset the mesh price input.
+        const mp = document.getElementById('manualMeshPrice');
+        if(mp) mp.value = '';
+        calculateManualTotal();
+      }
+
+      // manual mesh size selection removed; manual price entry is used instead
 
       // wire mesh option change to update hidden price and total
       document
@@ -480,9 +590,80 @@
           hardener,
           hardenerLabel,
           total,
+          mode: 'auto'
         };
         cartItems.push(item);
         renderCart();
+        // Reset automation form fields after adding to cart
+        document.getElementById('autoFrame').value = '';
+        document.getElementById('autoMeshOption').selectedIndex = 0;
+        document.getElementById('autoMeshPrice').value = 0;
+        document.getElementById('autoStretching').value = '0';
+        document.getElementById('autoExposin').selectedIndex = 0;
+        document.getElementById('autoHardener').value = '0';
+        document.getElementById('autoTotal').value = '0.00';
+      });
+
+      // --- Manual calculation and Add to Cart ---
+      function calculateManualTotal() {
+        const frame = parseFloat(document.getElementById('manualFrame').value) || 0;
+        const mesh = parseFloat(document.getElementById('manualMeshPrice')?.value) || 0;
+        const stretching = parseFloat(document.getElementById('manualStretching').value) || 0;
+        const exposin = parseFloat(document.getElementById('manualExposin').value) || 0;
+        const hardener = parseFloat(document.getElementById('manualHardener').value) || 0;
+        const washing = parseFloat(document.getElementById('manualWashing').value) || 0;
+        const total = frame + mesh + stretching + exposin + hardener + washing;
+        document.getElementById('manualTotal').value = total.toFixed(2);
+      }
+
+      // wire manual inputs
+      ['manualFrame','manualMeshPrice','manualStretching','manualExposin','manualHardener','manualWashing','manualWidth','manualHeight'].forEach(id=>{
+        const el = document.getElementById(id);
+        if(!el) return;
+        el.addEventListener('input', calculateManualTotal);
+        el.addEventListener('change', calculateManualTotal);
+      });
+
+      // manual mesh price input is handled directly by input listeners (wired below)
+
+      document.getElementById('manualAddCart').addEventListener('click', ()=>{
+        const frameValue = parseFloat(document.getElementById('manualFrame').value) || 0;
+  // store a simple frame label (no price) for manual items; if user entered a frame price, we still keep the numeric value in frameValue
+  const frameLabel = frameValue ? `Frame` : '';
+  const meshPrice = parseFloat(document.getElementById('manualMeshPrice')?.value) || 0;
+  const meshLabel = `${manualMeshType} Mesh - Rs ${meshPrice.toFixed(2)}`;
+  const meshLabelShort = `${manualMeshType} Mesh`;
+        const stretching = parseFloat(document.getElementById('manualStretching').value) || 0;
+        const exposin = parseFloat(document.getElementById('manualExposin').value) || 0;
+        const hardener = parseFloat(document.getElementById('manualHardener').value) || 0;
+        const washing = parseFloat(document.getElementById('manualWashing').value) || 0;
+        const width = document.getElementById('manualWidth').value || null;
+        const height = document.getElementById('manualHeight').value || null;
+        const total = parseFloat(document.getElementById('manualTotal').value) || 0;
+
+        if(total <= 0){ alert('Please enter values for manual item'); return; }
+
+        const item = {
+          frameValue, frameLabel,
+          meshPrice, meshLabel, meshLabelShort,
+          meshType: manualMeshType,
+          stretching, exposin, hardener, washing,
+          width, height,
+          total,
+          mode: 'manual'
+        };
+        cartItems.push(item);
+        renderCart();
+        // Reset manual form fields after adding to cart
+        document.getElementById('manualFrame').value = '';
+  const mh = document.getElementById('manualMeshPrice'); if(mh) mh.value = '';
+        document.getElementById('manualStretching').value = '';
+        document.getElementById('manualExposin').value = '';
+        document.getElementById('manualHardener').value = '';
+        document.getElementById('manualWashing').value = '';
+        document.getElementById('manualWidth').value = '';
+        document.getElementById('manualHeight').value = '';
+        document.getElementById('manualTotal').value = '0.00';
       });
 
       function renderCart() {
@@ -498,15 +679,17 @@
             const div = document.createElement("div");
             div.className =
               "border rounded-lg p-3 bg-white flex flex-col gap-2 shadow-sm";
+            // Title: for manual mode show only meshLabelShort (e.g., "PVC Mesh 9×12"), for auto show frame + mesh
+              const titleTop = (item.mode === 'manual') ?
+                `<div class="text-sm sm:text-base font-medium"><p>${item.frameValue ? 'Frame' : 'Select Frame'}</p><p>${item.meshType || ''} ${item.width && item.height ? `(${item.width}×${item.height})` : ''}</p></div>` :
+                `<div class="text-sm sm:text-base font-medium"><p>${item.frameLabel || (item.frameValue ? `Frame - Rs ${item.frameValue}` : 'Frame: -')}</p><p>${item.meshLabelShort || item.meshLabel || 'Mesh -'}</p></div>`;
+
             div.innerHTML = `
           <div class="flex justify-between items-center">
-              <div class="text-sm sm:text-base font-medium">
-              <p>${item.frameLabel || "Frame: -"}</p>
-              <p>${item.meshLabelShort || item.meshLabel || "-"}</p>
-            </div>
+              ${titleTop}
             <button class="text-red-500 font-bold" onclick="removeItem(${i})">X</button>
           </div>
-          <div class="text-sm text-gray-700 grid grid-cols-2 gap-1">
+            <div class="text-sm text-gray-700 grid grid-cols-2 gap-1">
             <div>Frame Price</div><div class="text-right">${parseFloat(
               item.frameValue || 0
             ).toFixed(2)}</div>
@@ -522,6 +705,8 @@
             <div>Hardener</div><div class="text-right">${parseFloat(
               item.hardener || 0
             ).toFixed(2)}</div>
+            <div>Washing</div><div class="text-right">${parseFloat(item.washing || 0).toFixed(2)}</div>
+            ${item.mode !== 'manual' && item.width && item.height ? `<div>Dimensions</div><div class="text-right">${item.width} × ${item.height}</div>` : ''}
             <div class="font-bold">Total</div><div class="text-right font-bold">Rs ${parseFloat(
               item.total || 0
             ).toFixed(2)}</div>
