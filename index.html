@@ -69,18 +69,30 @@
                   </h2>
 
                   <div class="form-scroll space-y-3">
-                    <!-- Frame (user-entered price) -->
+                    <!-- Frame (select from presets) -->
                     <div>
                       <label
                         class="block text-sm font-semibold text-gray-700 mb-2"
-                        >Frame Price (LKR)</label
+                        >Select Frame</label
                       >
-                      <input
-                        type="number"
+                      <select
                         id="autoFrame"
-                        placeholder="Enter frame price"
                         class="w-full px-3 py-2 border-2 border-blue-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"
-                      />
+                      >
+                        <option value="">Select Frame</option>
+                        <option value="450">
+                          9*12 Wooden Frame - Rs. 450.00
+                        </option>
+                        <option value="550">
+                          15*12 Wooden Frame - Rs. 550.00
+                        </option>
+                        <option value="650">
+                          18*15 Wooden Frame - Rs. 650.00
+                        </option>
+                        <option value="700">
+                          18*22 Wooden Frame - Rs. 700.00
+                        </option>
+                      </select>
                     </div>
 
                     <!-- Mesh Type -->
@@ -105,67 +117,87 @@
                       </div>
                     </div>
 
-                    <!-- Mesh Size -->
+                    <!-- Mesh Options (populated per PVC/WaterBase) -->
                     <div>
                       <label
                         class="block text-sm font-semibold text-gray-700 mb-2"
-                        >Mesh Size</label
+                        >Select Mesh</label
                       >
                       <select
-                        id="autoMeshSize"
+                        id="autoMeshOption"
                         class="w-full px-3 py-2 border-2 border-blue-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"
                       >
-                        <option value="">Select Mesh Size</option>
-                        <option value="9x12">9×12</option>
-                        <option value="15x12">15×12</option>
-                        <option value="18x15">18×15</option>
-                        <option value="18x22">18×22</option>
+                        <option value="">Select Mesh Option</option>
                       </select>
                     </div>
 
-                    <!-- Hidden Mesh Field (auto-loaded) -->
-                    <input type="hidden" id="autoMesh" value="0" />
+                    <!-- Hidden Mesh Price -->
+                    <input type="hidden" id="autoMeshPrice" value="0" />
 
-                    <!-- Stretching -->
+                    <!-- Stretching (select) -->
                     <div>
                       <label
                         class="block text-sm font-semibold text-gray-700 mb-2"
-                        >Stretching</label
+                        >Select Stretching</label
                       >
-                      <input
-                        type="number"
+                      <select
                         id="autoStretching"
-                        placeholder="Stretching Price"
                         class="w-full px-3 py-2 border-2 border-blue-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"
-                      />
+                      >
+                        <option value="0">Select Stretching</option>
+                        <option value="400">9*12 Streching - Rs. 400.00</option>
+                        <option value="400">
+                          15*12 Streching - Rs. 400.00
+                        </option>
+                        <option value="450">
+                          18*15 Streching - Rs. 450.00
+                        </option>
+                        <option value="450">
+                          18*22 Streching - Rs. 450.00
+                        </option>
+                      </select>
                     </div>
 
-                    <!-- Exposin -->
+                    <!-- Exposin (select) -->
                     <div>
                       <label
                         class="block text-sm font-semibold text-gray-700 mb-2"
-                        >Exposin</label
+                        >Select Exposin</label
                       >
-                      <input
-                        type="number"
+                      <select
                         id="autoExposin"
-                        placeholder="Exposin Price"
                         class="w-full px-3 py-2 border-2 border-blue-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"
-                      />
+                      >
+                        <option value="">Select Exposin</option>
+                        <option value="850">9*12 Exposin - Rs. 850.00</option>
+                        <option value="1275">
+                          15*12 Exposin - Rs. 1275.00
+                        </option>
+                        <option value="1530">
+                          18*15 Exposin - Rs. 1530.00
+                        </option>
+                        <option value="1700">
+                          18*22 Exposin - Rs. 1700.00
+                        </option>
+                      </select>
                     </div>
 
-                    <!-- Hardener (optional) -->
+                    <!-- Hardener (select) -->
                     <div>
                       <label
                         class="block text-sm font-semibold text-gray-700 mb-2"
-                        >Hardener (Optional)</label
+                        >Select Hardener</label
                       >
-                      <input
-                        type="number"
+                      <select
                         id="autoHardener"
-                        placeholder="Hardener Price (Optional)"
                         class="w-full px-3 py-2 border-2 border-blue-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"
-                      />
+                      >
+                        <option value="0">None / Select Hardener</option>
+                        <option value="400">9*12 Hardner - Rs. 400.00</option>
+                        <option value="450">15*12 Hardner - Rs. 450.00</option>
+                        <option value="450">18*15 Hardner - Rs. 450.00</option>
+                        <option value="450">18*22 Hardner - Rs. 450.00</option>
+                      </select>
                     </div>
 
                     <!-- Total Price -->
@@ -238,44 +270,23 @@
     </div>
 
     <script>
-      // --- Price Table ---
-      const autoPriceTable = {
-        "9x12": {
-          PVC: { mesh: 450, stretching: 850, exposin: 400, hardener: 850 },
-          WaterBase: {
-            mesh: 450,
-            stretching: 350,
-            exposin: 850,
-            hardener: 400,
-          },
-        },
-        "15x12": {
-          PVC: { mesh: 550, stretching: 850, exposin: 1275, hardener: 800 },
-          WaterBase: {
-            mesh: 550,
-            stretching: 350,
-            exposin: 1275,
-            hardener: 850,
-          },
-        },
-        "18x15": {
-          PVC: { mesh: 650, stretching: 1200, exposin: 1530, hardener: 450 },
-          WaterBase: {
-            mesh: 650,
-            stretching: 750,
-            exposin: 1530,
-            hardener: 450,
-          },
-        },
-        "18x22": {
-          PVC: { mesh: 700, stretching: 1650, exposin: 1700, hardener: 450 },
-          WaterBase: {
-            mesh: 700,
-            stretching: 1000,
-            exposin: 1700,
-            hardener: 450,
-          },
-        },
+      // --- Price Data ---
+      // Frame options are in the HTML select
+
+      // Mesh option lists for PVC and WaterBase (label -> price)
+      const meshOptions = {
+        PVC: [
+          { label: "PVC Mesh 9×12 - Rs. 850.00", price: 850 },
+          { label: "PVC Mesh 15×12 - Rs. 850.00", price: 850 },
+          { label: "PVC Mesh 18×15 - Rs. 1200.00", price: 1200 },
+          { label: "PVC Mesh 18×22 - Rs. 1650.00", price: 1650 },
+        ],
+        WaterBase: [
+          { label: "WaterBase Mesh 9×12 - Rs. 350.00", price: 350 },
+          { label: "WaterBase Mesh 15×12 - Rs. 350.00", price: 350 },
+          { label: "WaterBase Mesh 18×15 - Rs. 750.00", price: 750 },
+          { label: "WaterBase Mesh 18×22 - Rs. 1000.00", price: 1000 },
+        ],
       };
 
       let cartItems = [];
@@ -322,12 +333,12 @@
       // --- Mesh Type Toggle ---
       document.getElementById("autoPVC").addEventListener("click", () => {
         autoMeshType = "PVC";
-        autoLoadFields();
+        populateMeshOptions();
         toggleMeshButton("PVC");
       });
       document.getElementById("autoWaterbase").addEventListener("click", () => {
         autoMeshType = "WaterBase";
-        autoLoadFields();
+        populateMeshOptions();
         toggleMeshButton("WaterBase");
       });
       function toggleMeshButton(type) {
@@ -360,44 +371,56 @@
         }
       }
 
-      // --- Auto Load Fields ---
-      document
-        .getElementById("autoMeshSize")
-        .addEventListener("change", autoLoadFields);
-      function autoLoadFields() {
-        const meshSize = document.getElementById("autoMeshSize").value;
-        if (!meshSize || !autoMeshType) return;
-
-        const prices = autoPriceTable[meshSize][autoMeshType];
-
-        if (!document.getElementById("autoStretching").dataset.userEdited)
-          document.getElementById("autoStretching").value = prices.stretching;
-        if (!document.getElementById("autoExposin").dataset.userEdited)
-          document.getElementById("autoExposin").value = prices.exposin;
-        if (!document.getElementById("autoHardener").dataset.userEdited)
-          document.getElementById("autoHardener").value = prices.hardener;
-
-        document.getElementById("autoMesh").value = prices.mesh;
-
-        // ✅ Update total immediately
+      // --- Populate Mesh Options based on mesh type ---
+      function populateMeshOptions() {
+        const sel = document.getElementById("autoMeshOption");
+        sel.innerHTML = '<option value="">Select Mesh Option</option>';
+        meshOptions[autoMeshType].forEach((opt) => {
+          const o = document.createElement("option");
+          o.value = opt.price;
+          o.textContent = opt.label;
+          sel.appendChild(o);
+        });
+        // reset mesh price
+        document.getElementById("autoMeshPrice").value = 0;
         calculateAutoTotal();
       }
+
+      // wire mesh option change to update hidden price and total
+      document
+        .getElementById("autoMeshOption")
+        .addEventListener("change", () => {
+          const price =
+            parseFloat(document.getElementById("autoMeshOption").value) || 0;
+          document.getElementById("autoMeshPrice").value = price;
+          calculateAutoTotal();
+        });
+
+      // populate default mesh options on load (default to PVC)
+      window.addEventListener("DOMContentLoaded", () => {
+        autoMeshType = "PVC";
+        toggleMeshButton("PVC");
+        populateMeshOptions();
+      });
 
       // --- Track User Inputs for Total ---
       ["autoFrame", "autoStretching", "autoExposin", "autoHardener"].forEach(
         (id) => {
           const el = document.getElementById(id);
+          if (!el) return;
           el.addEventListener("input", () => {
             el.dataset.userEdited = true;
             calculateAutoTotal();
           });
+          el.addEventListener("change", () => calculateAutoTotal());
         }
       );
 
       function calculateAutoTotal() {
         const frame =
           parseFloat(document.getElementById("autoFrame").value) || 0;
-        const mesh = parseFloat(document.getElementById("autoMesh").value) || 0;
+        const mesh =
+          parseFloat(document.getElementById("autoMeshPrice").value) || 0;
         const stretching =
           parseFloat(document.getElementById("autoStretching").value) || 0;
         const exposin =
@@ -410,36 +433,52 @@
 
       // --- Add to Cart ---
       document.getElementById("autoAddCart").addEventListener("click", () => {
-        const frameValue = document.getElementById("autoFrame").value;
+        const frameSelect = document.getElementById("autoFrame");
+        const frameValue = parseFloat(frameSelect.value) || 0;
         const frameLabel =
-          document.querySelector("#autoFrame option:checked")?.textContent ||
-          "";
-        const meshSize = document.getElementById("autoMeshSize").value;
-        const meshPrice =
-          parseFloat(document.getElementById("autoMesh").value) || 0;
+          frameSelect.options[frameSelect.selectedIndex]?.text || "";
+
+        const meshSelect = document.getElementById("autoMeshOption");
+        const meshPrice = parseFloat(meshSelect.value) || 0;
+        const meshLabel =
+          meshSelect.options[meshSelect.selectedIndex]?.text || "";
+
         const stretching =
           parseFloat(document.getElementById("autoStretching").value) || 0;
-        const exposin =
-          parseFloat(document.getElementById("autoExposin").value) || 0;
-        const hardener =
-          parseFloat(document.getElementById("autoHardener").value) || 0;
+        const exposinSelect = document.getElementById("autoExposin");
+        const exposin = parseFloat(exposinSelect.value) || 0;
+        const exposinLabel =
+          exposinSelect.options[exposinSelect.selectedIndex]?.text || "";
+
+        const hardenerSelect = document.getElementById("autoHardener");
+        const hardener = parseFloat(hardenerSelect.value) || 0;
+        const hardenerLabel =
+          hardenerSelect.options[hardenerSelect.selectedIndex]?.text || "";
+
         const total =
           parseFloat(document.getElementById("autoTotal").value) || 0;
 
-        if (!meshSize) {
-          alert("Please select Mesh Size!");
+        if (!meshLabel) {
+          alert("Please select a Mesh option!");
           return;
         }
 
-        // store a detailed item so we can render breakdown in cart
+        // create a short mesh label without the trailing price (e.g. remove " - Rs ...")
+        const meshLabelShort = meshLabel
+          .replace(/\s*-\s*Rs\.?\s*.*/i, "")
+          .trim();
+
         const item = {
           frameValue,
           frameLabel,
-          meshSize,
           meshPrice,
+          meshLabel,
+          meshLabelShort,
           stretching,
           exposin,
+          exposinLabel,
           hardener,
+          hardenerLabel,
           total,
         };
         cartItems.push(item);
@@ -461,26 +500,26 @@
               "border rounded-lg p-3 bg-white flex flex-col gap-2 shadow-sm";
             div.innerHTML = `
           <div class="flex justify-between items-center">
-            <div class="text-sm sm:text-base font-medium">
+              <div class="text-sm sm:text-base font-medium">
               <p>${item.frameLabel || "Frame: -"}</p>
-              <p>Mesh Size: ${item.meshSize || "-"}</p>
+              <p>${item.meshLabelShort || item.meshLabel || "-"}</p>
             </div>
             <button class="text-red-500 font-bold" onclick="removeItem(${i})">X</button>
           </div>
           <div class="text-sm text-gray-700 grid grid-cols-2 gap-1">
-            <div>Frame Price</div><div class="text-right">Rs ${parseFloat(
+            <div>Frame Price</div><div class="text-right">${parseFloat(
               item.frameValue || 0
             ).toFixed(2)}</div>
-            <div>Mesh Price</div><div class="text-right">Rs ${parseFloat(
+            <div>Mesh Price</div><div class="text-right">${parseFloat(
               item.meshPrice || 0
             ).toFixed(2)}</div>
-            <div>Stretching</div><div class="text-right">Rs ${parseFloat(
+            <div>Stretching</div><div class="text-right">${parseFloat(
               item.stretching || 0
             ).toFixed(2)}</div>
-            <div>Exposin</div><div class="text-right">Rs ${parseFloat(
+            <div>Exposin</div><div class="text-right">${parseFloat(
               item.exposin || 0
             ).toFixed(2)}</div>
-            <div>Hardener</div><div class="text-right">Rs ${parseFloat(
+            <div>Hardener</div><div class="text-right">${parseFloat(
               item.hardener || 0
             ).toFixed(2)}</div>
             <div class="font-bold">Total</div><div class="text-right font-bold">Rs ${parseFloat(
